@@ -19,7 +19,6 @@ input: m1 = [[4, 2],[3, 1]]; m2 = [[5, 6], [3, 8]]; output = [[26, 40], [18, 26]
 input: m1 = [[0, 0],[0, 0]]; m2 = [[5, 6], [3, 8]]; output = [[0, 0], [0, 0]]
 input: m1 = [[14, 2],[7, 1]]; m2 = [[8, 6], [0, 8]]; output = [[112, 100], [56, 50]]
 """
-import numpy as np
 class Solution:
     def matrix_mult(self,m1, m2):
         # type m1: list
@@ -27,7 +26,6 @@ class Solution:
         # return: List[List[int]]
         
         # TODO: Write code below to return a nested list with the solution to the prompt
-        result=[ [0,0],[0,0]]
         # #for rows
         # for i in range(len(m1)):
         #     #for columns
@@ -36,10 +34,23 @@ class Solution:
         #         for k in range(len(m2)):
         #             result[i][j] += m2[i][k] * m2[k][j]
 
-        result = np.dot(m1,m2)
-
+        result = [[0,0], [0,0]]
+        for i in range(len(m1)):
+        
+            # iterating by column by B
+            for j in range(len(m2[0])):
+        
+                # iterating by rows of B
+                for k in range(len(m2)):
+                    result[i][j] += m1[i][k] * m2[k][j]
         return result
 
+
+def getCell(matrixA, matrixB, r, c):
+    matrixBCol = getColAsList(matrixB, c)
+    lenOfList = len(matrixBCol)
+    productList = [matrixA[r][i]*matrixBCol[i] for i in range(lenOfList)]
+    return sum(productList)
 
 
 def main():
